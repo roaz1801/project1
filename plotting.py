@@ -19,5 +19,3 @@ plt.plot(num_val, label="Numerical value")
 plt.legend()
 plt.show()
 
-
-#print(exact_val)
