@@ -24,8 +24,8 @@ int main(int argc, char *argv[]){
         filename = argv[1]; // first command line argument after name of program
     }
 
-	int n = 1000;
-    double h = 1.0/(n+1);
+	int n = 10;
+    double h = 1.0/(n);
 
       // Declare new file name
       string fileout = filename;
@@ -38,7 +38,7 @@ int main(int argc, char *argv[]){
     double *u = new double[n+1]; double *d = new double[n+1];
     double *a = new double[n+1];  double *b = new double[n+1];  double *c = new double[n+1];
 
-    for(int i = 0; i<=n; i++){
+    for(int i = 1; i<=n; i++){
         x[i] = i*h;
         g[i] = (h*h)*f(i*h);
         
@@ -47,30 +47,29 @@ int main(int argc, char *argv[]){
         c[i] = -1.0;
     }
 
-    u[0]= u[n] = 0; d[1] = d[n] = b[1];
-     for(int i = 0; i<=n; i++){
-        //cout<<d[i]<<endl;
-    }
+    u[0]= u[n] = 0.0; d[1] = d[n] = b[1];
     
     //Forward sub
-    for(int i=2;i<=n-1;i++){
+    for(int i=2;i<=n;i++){
 	    d[i] = b[i]-a[i]*c[i-1]/d[i-1];
-        u[i] = g[i]-a[i]*g[i-1]/d[i-1];
+      u[i] = g[i]-a[i]*g[i-1]/d[i-1];
     }
 
     //Backward sub
-    for(int i=n-2; i>=0; i--){
-		u[i] -= (c[i+1]/d[i+1])*u[i+1];
+    //u[n-1] = g[n-1]/d[n-1];
+    for(int i=n-2; i>0; i--){
+		u[i] = g[i]+c[i+1]*u[i+1]/d[i];
 	}
-
    
     ofile.open(fileout);
     ofile << setiosflags(ios::showpoint | ios::uppercase);
       //      ofile << "       x:             approx:          exact:       relative error" << endl;
       for (int i = 1; i < n;i++) {
-    
+        double epsilon = log10( abs(u_val(x[i])-u[i])/u_val(x[i]));
+
          ofile << setw(15) << setprecision(8) << u_val(x[i]);
-         ofile << setw(15) << setprecision(8) << u[i]<<endl;;
+         ofile << setw(15) << setprecision(8) << u[i];
+         ofile << setw(15) << setprecision(8) << epsilon <<endl;
       }
       ofile.close();
 

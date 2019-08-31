@@ -37,13 +37,13 @@ int main(int argc, char *argv[]){
     double *x = new double[n+1]; double *g = new double[n+1];
     double *u = new double[n+1]; double *d = new double[n+1];
 
-    for (int i = 1; i < n; i++) d[i] = (i+1.0)/( (double) i); 
+    //for (int i = 1; i < n; i++) d[i] = (i+1.0)/( (double) i); 
     for(int i = 1; i<=n; i++){
         x[i] = i*h;
         g[i] = (h*h)*f(i*h);
     }
 
-    u[0]= u[n] = 0.0; d[0] = d[n] = 2;
+    u[0]= u[n] = 0.0; d[1] = d[n] = 2;
     
     //Forward sub
     for(int i=2;i<=n;i++){
@@ -62,8 +62,10 @@ int main(int argc, char *argv[]){
     ofile << setiosflags(ios::showpoint | ios::uppercase);
       //      ofile << "       x:             approx:          exact:       relative error" << endl;
       for (int i = 1; i < n;i++) {
+        double epsilon = log10( abs(u_val(x[i])-u[i])/u_val(x[i]));
          ofile << setw(15) << setprecision(8) << u_val(x[i]);
-         ofile << setw(15) << setprecision(8) << u[i]<<endl;;
+         ofile << setw(15) << setprecision(8) << u[i];
+         ofile << setw(15) << setprecision(8) << epsilon <<endl;
       }
       ofile.close();
 
