@@ -3,6 +3,7 @@ import numpy as np
 
 exact_val = []
 num_val = []
+#x_val = []
 
 with open("hei.txt","r") as infile:
     for i in infile:
@@ -10,6 +11,7 @@ with open("hei.txt","r") as infile:
         e_val,n_val = data[0].split("[]")[0],data[1].split("[]")[0]
         exact_val.append(float(e_val))
         num_val.append(float(n_val))
+        #x_val.append(int(x_val))
 
 
 

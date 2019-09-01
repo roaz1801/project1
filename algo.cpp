@@ -42,9 +42,9 @@ int main(int argc, char *argv[]){
         x[i] = i*h;
         g[i] = (h*h)*f(i*h);
         
-        a[i] = -1.0;
-        b[i] = 2.0;
-        c[i] = -1.0;
+        a[i] = -1;
+        b[i] = 2;
+        c[i] = -1;
     }
 
     u[0]= u[n] = 0.0; d[1] = d[n] = b[1];
