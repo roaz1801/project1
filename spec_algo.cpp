@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
+#include <time.h>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ int main(int argc, char *argv[]){
         filename = argv[1]; // first command line argument after name of program
     }
 
-	int n = 1000;
+	int n = 10000000;
     double h = 1.0/(n);
 
       // Declare new file name
@@ -39,8 +40,13 @@ int main(int argc, char *argv[]){
 
     double *x = new double[n+1]; double *g = new double[n+1];
     double *u = new double[n+1]; double *d = new double[n+1];
+    clock_t start, finish;
+    
+    start = clock();
 
-    for (int i = 1; i < n; i++) d[i] = (i+1.0)/( (double) i); 
+    for (int i = 1; i < n; i++){
+       d[i] = (i+1.0)/( (double) i);
+        } 
     for(int i = 1; i<=n; i++){
         x[i] = i*h;
         g[i] = (h*h)*f(i*h);
@@ -48,11 +54,18 @@ int main(int argc, char *argv[]){
 
     u[0]= u[n] = 0.0; d[1] = d[n] = 2;
 
-    for (int i = 2; i < n; i++) g[i] = g[i] + g[i-1]/d[i-1];
-    u[n-1] = g[n-1]/d[n-1];
-      for (int i = n-2; i > 0; i--) u[i] = (g[i]+u[i+1])/d[i];
-    
+    for (int i = 2; i < n; i++){
+       g[i] = g[i] + g[i-1]/d[i-1];
+       }
 
+    u[n-1] = g[n-1]/d[n-1];
+    for (int i = n-2; i > 0; i--){
+       u[i] = (g[i]+u[i+1])/d[i];
+       }
+
+    finish = clock();
+    cout << ((((double)finish - (double)start)/CLOCKS_PER_SEC));
+    
 
    /*
     This is the real code.
