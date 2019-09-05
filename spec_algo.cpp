@@ -18,22 +18,18 @@ int main(int argc, char *argv[]){
 
     if( argc <= 1 ){
      cout << "Bad Usage: " << argv[0] <<
-        " read also file name on same line and max power 10^n" << endl;
+        " read also file name on same line" << endl;
          exit(1);
     }
         else{
-        filename = argv[1]; // first command line argument after name of program
+        filename = argv[1]; 
     }
 
 	int n = 10000000;
     double h = 1.0/(n);
 
-      // Declare new file name
       string fileout = filename;
-      // Convert the power 10^i to a string
-      //string argument = to_string(i);
-      // Final filename as filename-i-
-      //fileout.append(argument);
+
           
     
 
