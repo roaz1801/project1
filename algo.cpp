@@ -52,14 +52,14 @@ int main(int argc, char *argv[]){
     //Forward sub
     for(int i=2;i<=n;i++){
 	    d[i] = d[i]-a[i]*c[i-1]/d[i-1];
-      u[i] = g[i]-(a[i]*g[i-1])/d[i-1];
+      g[i] = g[i]-(a[i]*g[i-1])/d[i-1];
     }
 
     //Backward sub
     //u[n-1] = g[n-1]/d[n-1];
     u[n-1] = g[n-1]/d[n-1];
     for(int i=n-2; i>0; i--){
-		u[i] = g[i]+(c[i+1]*u[i+1])/d[i];
+		u[i] = (g[i]-c[i+1]*u[i+1])/d[i];
 	}
    
     ofile.open(fileout);
