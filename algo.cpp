@@ -25,7 +25,7 @@ int main(int argc, char *argv[]){
         filename = argv[1]; // first command line argument after name of program
     }
 
-	int n = 1000;
+	int n = 1000000;
     double h = 1.0/(n);
 
       // Declare new file name
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]){
     ofile << setiosflags(ios::showpoint | ios::uppercase);
       //      ofile << "       x:             approx:          exact:       relative error" << endl;
       for (int i = 1; i < n;i++) {
-        double epsilon = log10( abs(u_val(x[i])-u[i])/u_val(x[i]));
+        double epsilon = log10( max(u[i]-u_val(x[i]))/u[i]);
 
          ofile << setw(15) << setprecision(8) << u_val(x[i]);
          ofile << setw(15) << setprecision(8) << u[i];
