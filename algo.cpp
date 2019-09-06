@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
+#include <time.h>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ int main(int argc, char *argv[]){
 
     if( argc <= 1 ){
      cout << "Bad Usage: " << argv[0] <<
-        " read also file name on same line and max power 10^n" << endl;
+        " read also file name on same line" << endl;
          exit(1);
     }
         else{
@@ -38,6 +39,9 @@ int main(int argc, char *argv[]){
     double *u = new double[n+1]; double *d = new double[n+1];
     double *a = new double[n+1];  double *b = new double[n+1];  double *c = new double[n+1];
 
+    clock_t start, finish;
+    
+    start = clock();
     for(int i = 1; i<=n; i++){
         x[i] = i*h;
         g[i] = (h*h)*f(i*h);
@@ -51,7 +55,7 @@ int main(int argc, char *argv[]){
     
     //Forward sub
     for(int i=2;i<=n;i++){
-	    d[i] = d[i]-a[i]*c[i-1]/d[i-1];
+	    d[i] = b[i]-(a[i]*c[i-1])/d[i-1];
       g[i] = g[i]-(a[i]*g[i-1])/d[i-1];
     }
 
@@ -61,7 +65,9 @@ int main(int argc, char *argv[]){
     for(int i=n-2; i>0; i--){
 		u[i] = (g[i]-c[i+1]*u[i+1])/d[i];
 	}
-   
+    finish = clock();
+    cout << ((((double)finish - (double)start)/CLOCKS_PER_SEC));
+
     ofile.open(fileout);
     ofile << setiosflags(ios::showpoint | ios::uppercase);
       //      ofile << "       x:             approx:          exact:       relative error" << endl;
@@ -70,6 +76,7 @@ int main(int argc, char *argv[]){
 
          ofile << setw(15) << setprecision(8) << u_val(x[i]);
          ofile << setw(15) << setprecision(8) << u[i];
+         ofile << setw(15) << setprecision(8) << x[i];
          ofile << setw(15) << setprecision(8) << epsilon <<endl;
       }
       ofile.close();
