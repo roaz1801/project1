@@ -25,7 +25,7 @@ int main(int argc, char *argv[]){
         filename = argv[1]; // first command line argument after name of program
     }
 
-	int n = 10;
+	int n = 100;
     double h = 1.0/(n);
 
       // Declare new file name
