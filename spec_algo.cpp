@@ -25,13 +25,10 @@ int main(int argc, char *argv[]){
         filename = argv[1]; 
     }
 
-	int n = 10000000;
+	int n = 10;
     double h = 1.0/(n);
 
       string fileout = filename;
-
-          
-    
 
 
     double *x = new double[n+1]; double *g = new double[n+1];
@@ -62,30 +59,6 @@ int main(int argc, char *argv[]){
     finish = clock();
     cout << ((((double)finish - (double)start)/CLOCKS_PER_SEC));
     
-
-   /*
-    This is the real code.
-    //for (int i = 1; i < n; i++) d[i] = (i+1.0)/( (double) i); 
-    for(int i = 1; i<=n; i++){
-        x[i] = i*h;
-        g[i] = (h*h)*f(i*h);
-    }
-
-    u[0]= u[n] = 0.0; d[1] = d[n] = 2;
-    
-    //Forward sub
-    for(int i=2;i<=n;i++){
-	    d[i] = d[i]+(1/d[i-1]);
-        u[i] = g[i]+(g[i-1]/d[i-1]);
-    }
-
-    //Backward sub
-    //u[n-1] = g[n-1]/d[n-1];
-    for(int i=n-2; i>0; i--){
-		u[i] -= g[i]+u[i+1]/d[i];
-	}*/
-
-   
     ofile.open(fileout);
     ofile << setiosflags(ios::showpoint | ios::uppercase);
       //      ofile << "       x:             approx:          exact:       relative error" << endl;
