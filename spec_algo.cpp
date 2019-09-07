@@ -7,6 +7,7 @@
 
 using namespace std;
 
+//Functions
 inline double f(double x){return 100.0*exp(-10.0*x);
 }
 
@@ -16,6 +17,7 @@ ofstream ofile;
 int main(int argc, char *argv[]){	
     string filename;
 
+//Get the text file from command line
     if( argc <= 1 ){
      cout << "Bad Usage: " << argv[0] <<
         " read also file name on same line" << endl;
@@ -25,18 +27,18 @@ int main(int argc, char *argv[]){
         filename = argv[1]; 
     }
 
-	int n = 10000000;
+	int n = 1000;
     double h = 1.0/(n);
 
       string fileout = filename;
 
-
+//Initialize arrays
     double *x = new double[n+1]; double *g = new double[n+1];
     double *u = new double[n+1]; double *d = new double[n+1];
     clock_t start, finish;
     
     start = clock();
-
+//Algorithm starts here
     for (int i = 1; i < n; i++){
        d[i] = (i+1.0)/( (double) i);
         } 
@@ -58,7 +60,8 @@ int main(int argc, char *argv[]){
 
     finish = clock();
     cout << ((((double)finish - (double)start)/CLOCKS_PER_SEC));
-    
+
+  //Writes to a file  
     ofile.open(fileout);
     ofile << setiosflags(ios::showpoint | ios::uppercase);
       //      ofile << "       x:             approx:          exact:       relative error" << endl;
@@ -71,6 +74,7 @@ int main(int argc, char *argv[]){
       }
       ofile.close();
 
+//Delete the arrays to free memory
     delete[] x; delete[] g; delete[] u; delete[]  d; 
     return 0;
 	}
