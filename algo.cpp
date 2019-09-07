@@ -25,15 +25,12 @@ int main(int argc, char *argv[]){
         filename = argv[1]; // first command line argument after name of program
     }
 
-	int n = 1000000;
+	int n = 100;
     double h = 1.0/(n);
 
       // Declare new file name
       string fileout = filename;
-      // Convert the power 10^i to a string
-      //string argument = to_string(i);
-      // Final filename as filename-i-
-      //fileout.append(argument);
+
 
     double *x = new double[n+1]; double *g = new double[n+1];
     double *u = new double[n+1]; double *d = new double[n+1];
@@ -67,13 +64,12 @@ int main(int argc, char *argv[]){
 	}
     finish = clock();
     cout << ((((double)finish - (double)start)/CLOCKS_PER_SEC));
-
+    
     ofile.open(fileout);
     ofile << setiosflags(ios::showpoint | ios::uppercase);
       //      ofile << "       x:             approx:          exact:       relative error" << endl;
       for (int i = 1; i < n;i++) {
-        double epsilon = log10( max(u[i]-u_val(x[i]))/u[i]);
-
+        double epsilon = log10(abs((u_val(x[i])-u[i])/u_val(x[i])));
          ofile << setw(15) << setprecision(8) << u_val(x[i]);
          ofile << setw(15) << setprecision(8) << u[i];
          ofile << setw(15) << setprecision(8) << x[i];
